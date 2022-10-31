@@ -30,12 +30,12 @@ namespace MortgageLibTest
             //act - no need to act for this one
             //assert
             Mortgage m;
-            //act
+          
             m = new Mortgage(
                 DateTime.Now.AddDays(5),
-                MortgageDuration.ThirtyYears
+                MortgageDuration.FifteenYears
                 );
-            Assert.AreEqual(m.Payments.Count, 180);
+            Assert.AreEqual(180, m.Payments.Count);
         }
 
         [TestMethod()]
@@ -46,7 +46,7 @@ namespace MortgageLibTest
                 DateTime.Now.AddDays(5),
                 MortgageDuration.ThirtyYears
                 );
-            Assert.AreEqual(m.Payments.Count, 360);
+            Assert.AreEqual(360, m.Payments.Count);
         }
 
     }

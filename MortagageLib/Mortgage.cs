@@ -39,7 +39,34 @@
             // https://github.com/Chinjila/ClassProjects/blob/51cd7400fbdac472d6bc2380dcbea2043203340b/MortgageLibTest/MortgageTest.cs
 
             // top menu-> Test -> Run All Tests
+            Payments = new List<Payment>();
 
+            //switch (duration)
+            //{
+            //    case MortgageDuration.FifteenYears:
+            //        {
+            //            for (int i = 0; i < 180; i++)
+            //            {
+            //                Payments.Add(new Payment());
+            //            }
+            //            break;
+            //        }
+            //    case MortgageDuration.ThirtyYears:
+            //        {
+            //            for (int i = 0; i < 360; i++)
+            //            {
+            //                Payments.Add(new Payment());
+            //            }
+            //            break;
+            //        }
+            //    default:
+            //        break;
+            //}
+
+            for (int i = 0; i < (int) duration; i++)
+            {
+                Payments.Add(new Payment());
+            }
         }
 
 
@@ -54,7 +81,7 @@
     // Create enum for 15 Year Mortgage and 30 Year Mortgage
     public enum MortgageDuration
     { 
-        FifteenYears,
-        ThirtyYears
+        FifteenYears=180,
+        ThirtyYears=360
     }
 }
