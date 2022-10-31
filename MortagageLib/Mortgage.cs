@@ -29,8 +29,19 @@
             // right click solution -> Add -> New Project -> search for MSTest Project
             // Name the project MortgageLibTest
             // delete UnitTest1.cs
+
+            // right click on MortgageLibTest, select Add -> Project Reference so we can
+            // instantiate the Mortgage class.
+            // 
+            // Right click on MortgageLibTest, add->class
+            // make sure to call the test class file [classUnderTest]test.cs
+            // referece the content of
+            // https://github.com/Chinjila/ClassProjects/blob/51cd7400fbdac472d6bc2380dcbea2043203340b/MortgageLibTest/MortgageTest.cs
+
+            // top menu-> Test -> Run All Tests
+
         }
- 
+
 
     }
 

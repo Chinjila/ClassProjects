@@ -24,6 +24,30 @@ namespace MortgageLibTest
             //assert
         }
 
+        [TestMethod()]
+        public void New_15Years_Mortgage_Should_Have_180_Payments() {
+            //arrange - instantiate a new Mortgage with 15 Year
+            //act - no need to act for this one
+            //assert
+            Mortgage m;
+            //act
+            m = new Mortgage(
+                DateTime.Now.AddDays(5),
+                MortgageDuration.ThirtyYears
+                );
+            Assert.AreEqual(m.Payments.Count, 180);
+        }
+
+        [TestMethod()]
+        public void New_30Years_Mortgage_Should_Have_360_Payments() {
+            Mortgage m;
+            //act
+            m = new Mortgage(
+                DateTime.Now.AddDays(5),
+                MortgageDuration.ThirtyYears
+                );
+            Assert.AreEqual(m.Payments.Count, 360);
+        }
 
     }
 }
