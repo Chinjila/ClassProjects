@@ -19,12 +19,24 @@
         public List<Payment> GetAmortizationSchedule(int numberOfPayments)
         { throw new NotImplementedException(); }
 
-
+        public Mortgage(DateTime mortagageOriginationDate, LoanTerms terms)
+        {
+            if(mortagageOriginationDate < System.DateTime.Now)
+            {
+                throw new Exception("Start time cannot be in the past.");
+            }
+        }
     }
 
     public enum MortgageType
     {
         FixRate,
         AdjustableRate
+    }
+
+    public enum LoanTerms
+    {
+        FifteenYears,
+        ThirtyYears
     }
 }
