@@ -18,13 +18,33 @@
         { throw new NotImplementedException(); }
         public List<Payment> GetAmortizationSchedule(int numberOfPayments)
         { throw new NotImplementedException(); }
+        //create a constructor that accept the origination date and an enum
+        // for 15 or 30 years, throw exception if origination date < today - in the past
 
-
+        public Mortgage(DateTime originationDate, MortgageDuration duration)
+        {
+            if (originationDate < System.DateTime.Now)
+            {
+                throw new Exception("Mortgage can not be created in the past");
+            }
+        }
     }
+
+   
 
     public enum MortgageType
     {
         FixRate,
         AdjustableRate
     }
+
+    public enum MortgageDuration
+    {
+        FifteenYears,
+        ThirtyYears
+    }
+
+    //create enum for 15 year mortgage & 30 year mortgage
+
+
 }
