@@ -19,6 +19,14 @@
         public List<Payment> GetAmortizationSchedule(int numberOfPayments)
         { throw new NotImplementedException(); }
 
+        public Mortgage(DateTime originationDate, MortgageLength mortgageLength)
+        {
+            if (originationDate < DateTime.Now)
+            {
+                throw new InvalidOperationException("Invalid date. Orginiation day cannot be before today's date.");
+            }
+        }
+
 
     }
 
@@ -26,5 +34,12 @@
     {
         FixRate,
         AdjustableRate
+    }
+
+    // Create enum for 15 year mortgage, 30 year mortgage
+    public enum MortgageLength
+    {
+        FifteenYear,
+        ThirtyYear
     }
 }
