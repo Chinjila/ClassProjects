@@ -23,7 +23,7 @@
         {
             if (originationDate < DateTime.Now)
             {
-                throw new Exception("Invalid date. Orginiation day cannot be before today's date.");
+                throw new InvalidOperationException("Invalid date. Orginiation day cannot be before today's date.");
             }
         }
 
