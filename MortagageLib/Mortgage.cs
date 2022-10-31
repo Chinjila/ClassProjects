@@ -18,7 +18,8 @@
         { throw new NotImplementedException(); }
         public List<Payment> GetAmortizationSchedule(int numberOfPayments)
         { throw new NotImplementedException(); }
-
+        //create a constructor that accept the origination date and an enum
+        // for 15 or 30 years, throw exception if origination date < today - in the past
 
     }
 
@@ -27,4 +28,10 @@
         FixRate,
         AdjustableRate
     }
+
+    public enum 
+
+    //create enum for 15 year mortgage & 30 year mortgage
+
+
 }

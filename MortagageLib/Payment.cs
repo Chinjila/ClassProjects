@@ -1,6 +1,6 @@
 ﻿namespace MortagageLib
 {
-    public class Payment
+    public class Payment //nategrabowski
     {
     }
 }
