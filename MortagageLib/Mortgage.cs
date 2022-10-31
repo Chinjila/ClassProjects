@@ -26,7 +26,9 @@
             if (mortgageOriginationDate < System.DateTime.Now) {
                 throw new Exception("Mortgage can not be originated in the past.");
             }
-
+            // right click solution -> Add -> New Project -> search for MSTest Project
+            // Name the project MortgageLibTest
+            // delete UnitTest1.cs
         }
  
 
