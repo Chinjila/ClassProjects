@@ -41,28 +41,7 @@
             // top menu-> Test -> Run All Tests
             Payments = new List<Payment>();
 
-            //switch (duration)
-            //{
-            //    case MortgageDuration.FifteenYears:
-            //        {
-            //            for (int i = 0; i < 180; i++)
-            //            {
-            //                Payments.Add(new Payment());
-            //            }
-            //            break;
-            //        }
-            //    case MortgageDuration.ThirtyYears:
-            //        {
-            //            for (int i = 0; i < 360; i++)
-            //            {
-            //                Payments.Add(new Payment());
-            //            }
-            //            break;
-            //        }
-            //    default:
-            //        break;
-            //}
-
+            
             for (int i = 0; i < (int) duration; i++)
             {
                 Payments.Add(new Payment());
