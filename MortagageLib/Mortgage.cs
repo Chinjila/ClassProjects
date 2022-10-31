@@ -21,7 +21,7 @@
         //create a constructor that accept the origination date and an enum
         // for 15 or 30 years, throw exception if origination date < today - in the past
 
-    }
+    }hi nate
 
     public enum MortgageType
     {
