@@ -1,4 +1,6 @@
-﻿namespace MortagageLib
+﻿using System.Reflection.Emit;
+
+namespace MortagageLib
 {
     public class Mortgage
     {
@@ -9,6 +11,12 @@
         public List<Payment> Payments;
         public DateTime OriginationDate;
 
+        public Mortgage(MortgageLength length, DateTime OriginationDate)
+        {
+            throw new NotImplementedException();
+            if (OriginationDate < DateTime.Now)
+            { throw new ArgumentException();}
+        }
         public Payment CalculateMonthlyPayment(DateTime maturityDate)
         { throw new NotImplementedException(); }
         public Payment CalculateMonthlyPayment(int numberOfPayments)
@@ -18,6 +26,7 @@
         { throw new NotImplementedException(); }
         public List<Payment> GetAmortizationSchedule(int numberOfPayments)
         { throw new NotImplementedException(); }
+        
 
 
     }
@@ -26,5 +35,11 @@
     {
         FixRate,
         AdjustableRate
+    }
+
+    public enum MortgageLength
+    {
+        FifteenYear,
+        ThirtyYear
     }
 }
