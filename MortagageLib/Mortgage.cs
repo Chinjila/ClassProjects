@@ -43,8 +43,8 @@
 
               // top menu-> Test -> Run All Tests
               Payments = new List<Payment>();
-            this.OriginalPrincipalAmount = 200_000;
-            this.OriginalInterestRate = 0.065M;
+            this.OriginalPrincipalAmount =originalLoanAmount;
+            this.OriginalInterestRate = originalInterestRate;
             var payment = this.calculateMonthlyPayment((int)duration);
             var loanBalance = this.OriginalPrincipalAmount;
             for (int i = 0; i < (int) duration; i++)
