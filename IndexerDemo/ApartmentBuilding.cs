@@ -14,6 +14,21 @@
                 apartmentDirectory.Add($"{i}C", new Apartment { Owner = $"Bob-{i}C" });
             }
         }
+        public Apartment this[string v]
+        {
+            get { return GetApartment(v); }
+        }
+
+        public int ApartmentCount 
+        { 
+            get
+            { return apartmentDirectory.Count; }
+        }
+
+        public Apartment GetApartment(string v)
+        {
+            return apartmentDirectory[v];
+        }
     }
 
     public class Apartment {
