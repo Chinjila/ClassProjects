@@ -84,6 +84,28 @@ namespace MortgageLibTest
             Assert.AreEqual(169205.85M, m.GetRemainingBalanceOnDate(new DateTime(2060, 1, 1)));
         }
 
-
+        [TestMethod()]
+        public void Test_SortPrincipalAsPercentage()
+        {
+            //arrange
+            Mortgage m;
+            m = new Mortgage(
+                new DateTime(2050, 1, 1),
+                MortgageDuration.ThirtyYears
+                );
+            //act
+            var payments = m.SortPrincipalAsPercentage();
+            int stop = 75;
+            Payment payment1=null, payment2=null;
+            int loopCounter=0;
+            foreach (var item in payments)
+            {
+                if (loopCounter == stop - 1) { payment1 = item;}
+                if (loopCounter == stop) { payment2 = item; }
+                loopCounter++;
+            }
+            //assert
+            Assert.IsTrue(payment1.PrincipalAmount/payment1.PaymentAmount < payment2.PrincipalAmount/ payment2.PaymentAmount);
+        }
     }
 }

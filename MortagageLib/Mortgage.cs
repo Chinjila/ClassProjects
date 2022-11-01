@@ -81,7 +81,7 @@
             if (onDate <= OriginationDate | onDate > OriginationDate.AddMonths((int)LoanDuration))
             { throw new ArgumentOutOfRangeException("Date must be with in the range of the Mortgage."); }
             // use DateTime.AddMonth to LoanOriginationDate to figure out payment date
-            return (Decimal)Math.Round(Payments.Where(p => p.PaymentDate > onDate).First().LoanBalance,2);
+            return Math.Round(Payments.Where(p => p.PaymentDate > onDate).First().LoanBalance,2);
         }
 
         public Payment WhichPaymentHasMorePincipalThanInterest()
@@ -90,6 +90,26 @@
             // return the payment which applies more principal than interest
             // please add "PaymentDate" property to Payment.cs
         }
+        public Decimal GetTotalInterestPaidOnDate(DateTime onDate) //this return total interest paid on given date
+        {
+            if (onDate <= OriginationDate | onDate > OriginationDate.AddMonths((int)LoanDuration))
+            { throw new ArgumentOutOfRangeException("Date must be with in the range of the Mortgage."); }
+            return Math.Round(Payments.Where(p => p.PaymentDate < onDate).Sum(p=>p.InterestAmount), 2);
+        }
+        public IEnumerable<Payment> SortPrincipalAsPercentage()
+        {
+            return Payments.OrderBy(p => p.PrincipalAmount / p.PaymentAmount).Select(p => p);
+        }
+        public List<YearlyAmortization> GetYearlyAmortization() //this return total interest paid on given date
+        {
+            var result = Payments.GroupBy(p => p.PaymentDate.Year).Select(
+                g => 
+                new { Year = g, TotalPrincipal = g.Sum(p => p.PrincipalAmount), TotalInterest = g.Sum(p => p.InterestAmount) });
+        
+        
+        }
+
+
 
 
         internal Decimal calculateMonthlyPayment( int numberOfPayment) 
