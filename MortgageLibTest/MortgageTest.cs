@@ -60,6 +60,30 @@ namespace MortgageLibTest
             Assert.AreEqual(Math.Round(m.OriginalPrincipalAmount),
                 Math.Round(m.Payments.Sum(p=>p.PrincipalAmount)));
         }
-        
+        [TestMethod()]
+        public void Test_For_Principal_Over_Interest()
+        {
+            Mortgage m;
+            //act
+            m = new Mortgage(
+                DateTime.Now.AddDays(5),
+                MortgageDuration.ThirtyYears
+                );
+            Assert.AreEqual(233, m.WhichPaymentHasMorePincipalThanInterest().PaymentNumber);
+        }
+
+        [TestMethod()]
+        public void Test_GetRemainingBalanceOnDate()
+        {
+            Mortgage m;
+            //act
+            m = new Mortgage(
+                new DateTime(2050,1,1),
+                MortgageDuration.ThirtyYears
+                );
+            Assert.AreEqual(169205.85M, m.GetRemainingBalanceOnDate(new DateTime(2060, 1, 1)));
+        }
+
+
     }
 }

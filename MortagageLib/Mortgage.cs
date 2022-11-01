@@ -6,6 +6,9 @@
         public decimal OriginalPrincipalAmount;
         public decimal CurrentPrincipal;
         public decimal OriginalInterestRate;
+
+        public MortgageDuration LoanDuration { get; }
+
         public MortgageType MortgageType;
         public List<Payment> Payments;
 
@@ -25,7 +28,7 @@
         // for 15 or 30 year, throw exception if origination < today - in the past
         public Mortgage(DateTime mortgageOriginationDate, MortgageDuration duration,Decimal originalLoanAmount,Decimal originalInterestRate)
         {
-            if (mortgageOriginationDate < System.DateTime.Now) {
+            if (mortgageOriginationDate < System.DateTime.Now.AddDays(-3)) {
                 throw new Exception("Mortgage can not be originated in the past.");
             }
             if (originalLoanAmount <= 0 | originalInterestRate <= 0) throw new ArgumentOutOfRangeException();
@@ -42,11 +45,14 @@
               // https://github.com/Chinjila/ClassProjects/blob/51cd7400fbdac472d6bc2380dcbea2043203340b/MortgageLibTest/MortgageTest.cs
 
               // top menu-> Test -> Run All Tests
-              Payments = new List<Payment>();
+            Payments = new List<Payment>();
             this.OriginalPrincipalAmount =originalLoanAmount;
             this.OriginalInterestRate = originalInterestRate;
+            this.LoanDuration = duration;
+            this.OriginationDate = mortgageOriginationDate;
             var payment = this.calculateMonthlyPayment((int)duration);
             var loanBalance = this.OriginalPrincipalAmount;
+            
             for (int i = 0; i < (int) duration; i++)
             {
                 var paymentNumber = i + 1;
@@ -60,9 +66,29 @@
                 loanBalance -= principalAmount;
                 
                 Payments.Add(
-                    new Payment(paymentNumber, principalAmount, interestAmount, loanBalance, payment));
+                    new Payment(paymentNumber,
+                                principalAmount,
+                                interestAmount,
+                                loanBalance,
+                                payment,
+                                OriginationDate.AddMonths(paymentNumber)));
+                //added payment constructor parameter to include payment date
             }
 
+        }
+
+        public Decimal GetRemainingBalanceOnDate(DateTime onDate) {
+            if (onDate <= OriginationDate | onDate > OriginationDate.AddMonths((int)LoanDuration))
+            { throw new ArgumentOutOfRangeException("Date must be with in the range of the Mortgage."); }
+            // use DateTime.AddMonth to LoanOriginationDate to figure out payment date
+            return (Decimal)Math.Round(Payments.Where(p => p.PaymentDate > onDate).First().LoanBalance,2);
+        }
+
+        public Payment WhichPaymentHasMorePincipalThanInterest()
+        {
+            return Payments.Where(p => p.PrincipalAmount > p.InterestAmount).First();
+            // return the payment which applies more principal than interest
+            // please add "PaymentDate" property to Payment.cs
         }
 
 
