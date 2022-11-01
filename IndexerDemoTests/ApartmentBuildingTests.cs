@@ -21,38 +21,47 @@ namespace IndexerDemo.Tests
             //assert
         }
         [TestMethod()]
-
-        public void Bob_1A_lives_in_1A(){
+        public void Bob_1A_lives_in_1A()
+        {
             //arrange
             ApartmentBuilding b = new ApartmentBuilding();
-
             //act
             Apartment a = b.GetApartment("1A");
             //assert
             Assert.AreEqual("Bob-1A", a.Owner);
+           
         }
-
         [TestMethod()]
-
-        public void Apartment_Building_Should_Support_Indexer()
+        public void When_Lookup_NonExisting_Apartment_Should_Throw_ANF_Exception()
         {
             //arrange
             ApartmentBuilding b = new ApartmentBuilding();
+            //act
 
-            //acta
+            //assert
+            Assert.ThrowsException<ApartmentNotFoundException>(() => b.GetApartment("5A"));
+
+        }
+
+        [TestMethod()]
+        public void ApartmentBuilding_Should_Support_Indexer()
+        {
+            //arrange
+            ApartmentBuilding b = new ApartmentBuilding();
+            //act
             Apartment a = b["1A"];
             //assert
             Assert.AreEqual("Bob-1A", a.Owner);
         }
 
-        public void Indexer_AndApartment_Same()
+        public void Indexer_And_GetApartment_Should_Return_The_Same_Object()
         {
             //arrange
             ApartmentBuilding b = new ApartmentBuilding();
-
-        
+            //act
+            ;
             //assert
-            Assert.AreEqual(b.GetApartment("1A"), b["1A"]);
+            Assert.AreSame(b.GetApartment("1A"), b["1A"]);
         }
     }
 }

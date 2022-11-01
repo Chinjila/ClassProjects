@@ -3,7 +3,7 @@
 namespace IndexerDemo
 {
     [Serializable]
-    internal class ApartmentNotFoundException : Exception
+    public class ApartmentNotFoundException : Exception
     {
         public ApartmentNotFoundException()
         {
