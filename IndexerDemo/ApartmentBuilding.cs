@@ -10,8 +10,8 @@
             for (int i = 0; i < 3; i++)
             {
                 apartmentDirectory.Add($"{i}A", new Apartment { Owner = $"Bob-{i}A"});
-                apartmentDirectory.Add($"{i}B", new Apartment { Owner = $"Bob-{i}B" });
-                apartmentDirectory.Add($"{i}C", new Apartment { Owner = $"Bob-{i}C" });
+                apartmentDirectory.Add($"{i}B", new Apartment { Owner = $"Bob-{i}B"});
+                apartmentDirectory.Add($"{i}C", new Apartment { Owner = $"Bob-{i}C"});
             }
         }
         public int ApartmentCount { 
