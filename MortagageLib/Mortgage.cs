@@ -93,6 +93,15 @@
             // please add "PaymentDate" property to Payment.cs
         }
 
+        public Decimal GetTotalInterestPaidOnDate(DateTime onDate)
+        {
+            if (onDate <= OriginationDate || onDate > OriginationDate.AddMonths((int)LoanDuration))
+            {
+                throw new ArgumentOutOfRangeException("Date must be within the range of the mortgage.");
+            }
+            return Math.Round(Payments.Where(p => p.PaymentDate < onDate).Sum(p => p.InterestAmount), 2);
+        }
+
         public IEnumerable<Payment> SortPrincipalAsPercentage()
         {
             return Payments.OrderBy(p => p.PrincipalAmount / p.PaymentAmount).Select(p => p);
@@ -106,6 +115,38 @@
             double monthlyPayment = r * p * (Math.Pow(1 + r, numberOfPayment)) / (Math.Pow(1 + r, numberOfPayment) - 1);
 
             return (decimal)Math.Round(monthlyPayment, 2);
+        }
+
+        public IEnumerable<YearlyPayment> GetYearlyAmortization()
+        {
+            var result = Payments.GroupBy(p => p.PaymentDate.Year).Select(
+                g => new YearlyPayment(g.Key, g.Sum(p => p.PrincipalAmount), g.Sum(p => p.InterestAmount)));
+
+            var result2 =
+                from p in Payments
+                group p by p.PaymentDate.Year into g
+                select new
+                {
+                    Year = g.Key,
+                    Principal = g.Sum(p => p.PrincipalAmount),
+                    Interest = g.Sum(p => p.InterestAmount)
+                };
+
+            return result.ToArray();
+        }
+    }
+
+    public class YearlyPayment
+    {
+        private int key;
+        private decimal v1;
+        private decimal v2;
+
+        public YearlyPayment(int key, decimal v1, decimal v2)
+        {
+            this.key = key;
+            this.v1 = v1;
+            this.v2 = v2;
         }
     }
 
