@@ -34,5 +34,11 @@ namespace IndexerDemo.Tests
             Apartment a = b["1A"];
             Assert.AreEqual("Bob-1A", a.Owner);
         }
+        [TestMethod()]
+        public void Indexer_And_GetApartment_Should_Return_The_Same_Object()
+        {
+            ApartmentBuilding b = new ApartmentBuilding();
+
+        }
     }
 }
