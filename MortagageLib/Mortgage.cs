@@ -86,7 +86,8 @@ namespace MortagageLib
             if (onDate <= OriginationDate | onDate > OriginationDate.AddMonths((int)LoanDuration))
             { throw new ArgumentOutOfRangeException("Date must be with in the range of the Mortgage."); }
             // use DateTime.AddMonth to LoanOriginationDate to figure out payment date
-            return Math.Round(Payments.Where(p => p.PaymentDate > onDate).First().LoanBalance, 2);
+            return Math.Round(
+                Payments.Where(p => p.PaymentDate > onDate).First().LoanBalance, 2);
         }
 
         public Payment WhichPaymentHasMorePincipalThanInterest()
@@ -110,7 +111,8 @@ namespace MortagageLib
             var result = Payments.GroupBy(p => p.PaymentDate.Year).Select(
                 g => new YearlyPayment(g.Key, g.Sum(p => p.PrincipalAmount),g.Sum(p => p.InterestAmount)));
 
-            return result.ToArray();
+
+            return result;
 
         }
 

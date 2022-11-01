@@ -107,5 +107,21 @@ namespace MortgageLibTest
             //assert
             Assert.IsTrue(payment1.PrincipalAmount/payment1.PaymentAmount < payment2.PrincipalAmount/ payment2.PaymentAmount);
         }
+
+
+        [TestMethod()]
+        public void Test_GetYearlyAmort()
+        {
+            Mortgage m;
+            //act
+            m = new Mortgage(
+                new DateTime(2050, 1, 1),
+                MortgageDuration.ThirtyYears
+                );
+
+            var result = m.GetYearlyAmortization();
+            Assert.AreEqual(31, result.Count());
+        }
+
     }
 }
