@@ -25,12 +25,13 @@ namespace MortgageLibTest
         }
 
         [TestMethod()]
-        public void New_15Years_Mortgage_Should_Have_180_Payments() {
+        public void New_15Years_Mortgage_Should_Have_180_Payments()
+        {
             //arrange - instantiate a new Mortgage with 15 Year
             //act - no need to act for this one
             //assert
             Mortgage m;
-          
+
             m = new Mortgage(
                 DateTime.Now.AddDays(5),
                 MortgageDuration.FifteenYears
@@ -39,7 +40,8 @@ namespace MortgageLibTest
         }
 
         [TestMethod()]
-        public void New_30Years_Mortgage_Should_Have_360_Payments() {
+        public void New_30Years_Mortgage_Should_Have_360_Payments()
+        {
             Mortgage m;
             //act
             m = new Mortgage(
@@ -58,8 +60,59 @@ namespace MortgageLibTest
                 MortgageDuration.ThirtyYears
                 );
             Assert.AreEqual(Math.Round(m.OriginalPrincipalAmount),
-                Math.Round(m.Payments.Sum(p=>p.PrincipalAmount)));
+                Math.Round(m.Payments.Sum(p => p.PrincipalAmount)));
         }
-        
+        [TestMethod()]
+        public void Test_For_Principal_Over_Interest()
+        {
+            Mortgage m;
+            //act
+            m = new Mortgage(
+                DateTime.Now.AddDays(5),
+                MortgageDuration.ThirtyYears
+                );
+            Assert.AreEqual(233, m.WhichPaymentHasMorePincipalThanInterest().PaymentNumber);
+        }
+
+        [TestMethod()]
+        public void Test_GetRemainingBalanceOnDate()
+        {
+            Mortgage m;
+            //act
+            m = new Mortgage(
+                new DateTime(2050, 1, 1),
+                MortgageDuration.ThirtyYears
+                );
+            Assert.AreEqual(169205.85M, m.GetRemainingBalanceOnDate(new DateTime(2060, 1, 1)));
+        }
+
+        [TestMethod()]
+        public void Test_SortPrincipalAsPercentage()
+        {
+            Mortgage m;
+            m = new Mortgage(
+                new DateTime(2050, 1, 1),
+                MortgageDuration.ThirtyYears
+                );
+            //act
+            var payments = m.SortPrincipalAsPercentage();
+            int stop = 75;
+            Payment payment1=null, payment2=null;
+            int loopCounter = 0;
+            foreach (var item in payments)
+            {
+                if (loopCounter == stop - 1)
+                {
+                    payment1 = item;
+                }
+                if (loopCounter == stop)
+                {
+                    payment2 = item;
+                }
+                loopCounter++;
+            }
+            // Assert
+            Assert.IsTrue(payment1.PrincipalAmount / payment1.PaymentAmount < payment2.PrincipalAmount / payment2.PaymentAmount);
+        }
     }
 }
