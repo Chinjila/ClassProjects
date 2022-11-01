@@ -48,6 +48,18 @@ namespace MortgageLibTest
                 );
             Assert.AreEqual(360, m.Payments.Count);
         }
-
+        [TestMethod()]
+        public void Thirty_Years_Mortgage_Payments_Should_AddUp_To_Loan_Amount()
+        {
+            Mortgage m;
+            //act
+            m = new Mortgage(
+                DateTime.Now.AddDays(5),
+                MortgageDuration.ThirtyYears
+                );
+            Assert.AreEqual(Math.Round(m.OriginalPrincipalAmount),
+                Math.Round(m.Payments.Sum(p=>p.PrincipalAmount)));
+        }
+        
     }
 }
