@@ -14,6 +14,24 @@
                 apartmentDirectory.Add($"{i}C", new Apartment { Owner = $"Bob-{i}C" });
             }
         }
+
+        public int ApartmentCount { get; set; }
+
+        public Apartment GetApartment(string v)
+        {
+            Apartment result;
+            if (apartmentDirectory.TryGetValue(v, out result))
+            { return result; }
+            else
+            {
+                throw new ApartmentNotFoundException($"Apartment {v} does not exist");
+            }
+        }
+
+        public Apartment this[string s]
+        {
+            get { return GetApartment(s); }
+        }
     }
 
     public class Apartment {
