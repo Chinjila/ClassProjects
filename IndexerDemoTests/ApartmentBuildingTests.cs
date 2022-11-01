@@ -31,5 +31,28 @@ namespace IndexerDemo.Tests
             //assert
             Assert.AreEqual("Bob-1A", a.Owner);
         }
+
+        [TestMethod()]
+
+        public void Apartment_Building_Should_Support_Indexer()
+        {
+            //arrange
+            ApartmentBuilding b = new ApartmentBuilding();
+
+            //acta
+            Apartment a = b["1A"];
+            //assert
+            Assert.AreEqual("Bob-1A", a.Owner);
+        }
+
+        public void Indexer_AndApartment_Same()
+        {
+            //arrange
+            ApartmentBuilding b = new ApartmentBuilding();
+
+        
+            //assert
+            Assert.AreEqual(b.GetApartment("1A"), b["1A"]);
+        }
     }
 }
