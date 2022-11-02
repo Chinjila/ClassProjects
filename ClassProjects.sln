@@ -11,7 +11,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IndexerDemo", "IndexerDemo\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IndexerDemoTests", "IndexerDemoTests\IndexerDemoTests.csproj", "{9FBA1A71-E7E4-42CC-899B-2B3D7FB732B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackAndQueue", "StackAndQueue\StackAndQueue.csproj", "{F1CC24D8-0A94-4A9C-A06A-7B9A8A29ECC0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StackAndQueue", "StackAndQueue\StackAndQueue.csproj", "{F1CC24D8-0A94-4A9C-A06A-7B9A8A29ECC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TimerEventSample", "TimerEventSample\TimerEventSample.csproj", "{DFC621BB-2FC8-49F9-AC85-89FFFF380A8D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +41,10 @@ Global
 		{F1CC24D8-0A94-4A9C-A06A-7B9A8A29ECC0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F1CC24D8-0A94-4A9C-A06A-7B9A8A29ECC0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F1CC24D8-0A94-4A9C-A06A-7B9A8A29ECC0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DFC621BB-2FC8-49F9-AC85-89FFFF380A8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DFC621BB-2FC8-49F9-AC85-89FFFF380A8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DFC621BB-2FC8-49F9-AC85-89FFFF380A8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DFC621BB-2FC8-49F9-AC85-89FFFF380A8D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
