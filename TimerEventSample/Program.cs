@@ -1,15 +1,19 @@
 ﻿// See https://aka.ms/new-console-template for more information
+using InheritanceExample;
 using System.Timers;
 using TimerEventSample;
 
 //TestSystemTimer();
 
-BetterTimer betterTimer = new BetterTimer("Timer1", 2000, true);
+BetterTimer betterTimer = new BetterTimer("Timer1", 2000, false);
 betterTimer.TimerRing += BetterTimer_TimerRing;
-
+betterTimer.Start();
 
 BetterTimer betterTimer2 = new BetterTimer("Timer2", 1000, true);
 betterTimer2.TimerRing += BetterTimer_TimerRing;
+
+Parent p = new();
+
 
 Console.ReadLine();
 
@@ -54,4 +58,12 @@ void TestSystemTimer()
     timer3.Enabled = true;
     timer4.Elapsed += blah;
     timer4.Enabled = true;
+}
+
+
+class OutSideAssembly : Parent
+{
+    void Test() {
+        this.
+    }
 }
