@@ -6,6 +6,8 @@ using TimerEventSample;
 
 BetterTimer betterTimer = new BetterTimer("Timer1", 3000, true);
 betterTimer.TimerRing += BetterTimer_TimerRing;
+Console.ReadLine();
+
 
 void BetterTimer_TimerRing(BetterTimer timer, BetterTimerEventArg arg)
 {
