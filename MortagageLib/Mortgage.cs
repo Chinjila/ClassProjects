@@ -134,38 +134,4 @@ namespace MortagageLib
         FixRate,
         AdjustableRate
     }
-
-    // Create enum for 15 Year Mortgage and 30 Year Mortgage
-    public enum MortgageDuration
-    {
-        FifteenYears = 180,
-        ThirtyYears = 360
-    }
-
-    public class YearlyPayment
-    {
-        public int Year { get; }
-        public decimal TotalPrincipal { get; }
-        public decimal TotalInterest { get; }
-
-        public YearlyPayment(int year, decimal totalPrincipal, decimal totalInterest)
-        {
-            Year = year;
-            TotalPrincipal = totalPrincipal;
-            TotalInterest = totalInterest;
-        }
-
-        public override bool Equals(object? obj)
-        {
-            return obj is YearlyPayment other &&
-                   Year == other.Year &&
-                   TotalPrincipal == other.TotalPrincipal &&
-                   TotalInterest == other.TotalInterest;
-        }
-
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(Year, TotalPrincipal, TotalInterest);
-        }
-    }
 }
