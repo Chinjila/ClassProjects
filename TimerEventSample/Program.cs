@@ -4,8 +4,13 @@ using TimerEventSample;
 
 //TestSystemTimer();
 
-BetterTimer betterTimer = new BetterTimer("Timer1", 3000, true);
+BetterTimer betterTimer = new BetterTimer("Timer1", 2000, true);
 betterTimer.TimerRing += BetterTimer_TimerRing;
+
+
+BetterTimer betterTimer2 = new BetterTimer("Timer2", 1000, true);
+betterTimer2.TimerRing += BetterTimer_TimerRing;
+
 Console.ReadLine();
 
 
