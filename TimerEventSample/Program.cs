@@ -11,12 +11,28 @@ betterTimer.Start();
 BetterTimer betterTimer2 = new BetterTimer("Timer2", 1000, true);
 betterTimer2.TimerRing += BetterTimer_TimerRing;
 
+List<string> names = new List<string>();
+names.Add("bob");
+names.Add("tommy");
+names.Add("McBoatyFace");
+names.Add("Victor");
+names.Add("Joe");
 
+//var longnames = names.Where(Predicate);
 
+//var longnames = names.Where(
+//    (string s) =>  s.Length > 3
+//    );
+int l = 5;
+var longnames = names.Where(
+    s => s.Length > l 
+    );
 
 Console.ReadLine();
 
-
+//bool Predicate(string s) {
+//    return s.Length > 3;
+//}
 void BetterTimer_TimerRing(BetterTimer timer, BetterTimerEventArg arg)
 {
     Console.WriteLine($"{timer.Name} just fired for the {arg.HowManyTimesHasItFired} time since {arg.WhenStart}");

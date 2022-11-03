@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace TimerEventSample
 {
-    public delegate void delTimerRing(BetterTimer timer, BetterTimerEventArg arg);
+    //public delegate void delTimerRing(BetterTimer timer, BetterTimerEventArg arg);
+
     public class BetterTimerEventArg {
         public DateTime WhenStart;
         public int HowManyTimesHasItFired;
@@ -19,7 +20,7 @@ namespace TimerEventSample
         int howManyTimesHasItFired=0;
 
         bool runTimer = false;
-        public event delTimerRing TimerRing; //this is the event
+        public event Action<BetterTimer, BetterTimerEventArg> TimerRing; //this is the event
         public BetterTimer(string name, int interval, bool startNow)
         {
             Name = name;
@@ -40,7 +41,7 @@ namespace TimerEventSample
                 { HowManyTimesHasItFired= howManyTimesHasItFired,
                   WhenStart = whenStart
                 };
-                TimerRing?.Invoke(this, betterTimerEventArg);
+                TimerRing?.Invoke(this, betterTimerEventArg);// now we are raising the event
                 howManyTimesHasItFired++;
             }
         }

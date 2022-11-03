@@ -15,7 +15,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "StackAndQueue", "StackAndQu
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TimerEventSample", "TimerEventSample\TimerEventSample.csproj", "{DFC621BB-2FC8-49F9-AC85-89FFFF380A8D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "InheritanceExample", "InheritanceExample\InheritanceExample.csproj", "{9A954EB2-9AAE-4550-83EC-51A6ABECA75A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "InheritanceExample", "InheritanceExample\InheritanceExample.csproj", "{9A954EB2-9AAE-4550-83EC-51A6ABECA75A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "JsonExercise", "JsonExercise\JsonExercise.csproj", "{1D335650-1D29-45AE-AF14-5C1C9DAC8473}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{9A954EB2-9AAE-4550-83EC-51A6ABECA75A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9A954EB2-9AAE-4550-83EC-51A6ABECA75A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9A954EB2-9AAE-4550-83EC-51A6ABECA75A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1D335650-1D29-45AE-AF14-5C1C9DAC8473}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1D335650-1D29-45AE-AF14-5C1C9DAC8473}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1D335650-1D29-45AE-AF14-5C1C9DAC8473}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1D335650-1D29-45AE-AF14-5C1C9DAC8473}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
