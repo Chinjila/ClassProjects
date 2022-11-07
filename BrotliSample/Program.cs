@@ -36,4 +36,16 @@ writer2.Flush();
 outputFile2.Flush();
 
 outputFile2.Close();
+Console.WriteLine("Hit enter to start decompressing the file.");
 Console.ReadLine();
+//Get an input file from Compressed.File
+FileStream inputFile = new FileStream("Compressed.File", FileMode.Open);
+BrotliStream decompressor = new BrotliStream(inputFile,CompressionMode.Decompress);
+
+StreamReader reader = new StreamReader(decompressor);
+string content = reader.ReadToEnd();
+Console.WriteLine(content);
+reader.Close();
+decompressor.Close();
+inputFile.Close();
+
