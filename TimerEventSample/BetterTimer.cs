@@ -27,15 +27,14 @@ namespace TimerEventSample
             if (startNow)
             {
                 runTimer = true;
-                Task t = new Task(async () => await EngageTimer());
-                t.Start();
+                EngageTimer();
             }
         }
-        private async Task EngageTimer()
+        private void EngageTimer()
         {
             whenStart = DateTime.Now;
             while (runTimer) {
-                await Task.Delay(Interval);
+                Task.Delay(Interval);
                 BetterTimerEventArg betterTimerEventArg = new()
                 { HowManyTimesHasItFired= howManyTimesHasItFired,
                   WhenStart = whenStart
