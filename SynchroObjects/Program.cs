@@ -1,4 +1,4 @@
-﻿#define Semaphore // Semaphore Barrier
+﻿#define Semaphore // Semaphore Barrier ConcurrentQueue
 
 #region Semaphore
 #if Semaphore
@@ -177,3 +177,47 @@ namespace BarrierSimple
 
 #endif
 #endregion
+
+#if ConcurrentQueue
+using System.Collections.Concurrent;
+
+class Program 
+{ 
+   static ConcurrentQueue<string> queue = new ConcurrentQueue<string>(); 
+ 
+   static void PlaceOrders() 
+   { 
+      for (int i = 1; i <= 100; i++) 
+      { 
+         
+         String order = String.Format("Order {0}", i); 
+         queue.Enqueue(order); 
+         Console.WriteLine("Added {0}", order); 
+      } 
+   } 
+ 
+   static void ProcessOrders() 
+   { 
+
+      while (true) //continue indefinitely 
+      if (queue.TryDequeue(out string? order)) 
+      { 
+         Console.WriteLine("Processed {0}", order); 
+      } 
+   }    
+ 
+   static void Main(string[] args) 
+   { 
+      var taskPlaceOrders = Task.Run(() => PlaceOrders()); 
+      Task.Run(() => ProcessOrders()); 
+      Task.Run(() => ProcessOrders()); 
+      Task.Run(() => ProcessOrders()); 
+ 
+      taskPlaceOrders.Wait(); 
+      Console.WriteLine("Press ENTER to finish"); 
+      Console.ReadLine(); 
+   }
+}
+#endif
+
+
