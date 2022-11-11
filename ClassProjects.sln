@@ -37,8 +37,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExploreReflection", "Explor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AttributeSample", "AttributeSample\AttributeSample.csproj", "{C9F0A0D5-7473-40F3-92CA-1A64753351ED}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleAzureFunction", "SampleAzureFunction\SampleAzureFunction.csproj", "{FD297578-BBD8-486F-91EF-DC2150EFDCA9}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoSample", "CryptoSample\CryptoSample.csproj", "{AD23FEFD-1491-4240-BAB8-796BB8EA7154}"
 EndProject
 Global
@@ -115,10 +113,6 @@ Global
 		{C9F0A0D5-7473-40F3-92CA-1A64753351ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C9F0A0D5-7473-40F3-92CA-1A64753351ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C9F0A0D5-7473-40F3-92CA-1A64753351ED}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FD297578-BBD8-486F-91EF-DC2150EFDCA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FD297578-BBD8-486F-91EF-DC2150EFDCA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FD297578-BBD8-486F-91EF-DC2150EFDCA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FD297578-BBD8-486F-91EF-DC2150EFDCA9}.Release|Any CPU.Build.0 = Release|Any CPU
 		{AD23FEFD-1491-4240-BAB8-796BB8EA7154}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AD23FEFD-1491-4240-BAB8-796BB8EA7154}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD23FEFD-1491-4240-BAB8-796BB8EA7154}.Release|Any CPU.ActiveCfg = Release|Any CPU
