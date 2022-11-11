@@ -34,10 +34,10 @@ SortingMethods.IntArrayGenerate(data, randomSeed);
 
 watch.Reset();
 watch.Start();
-SortingMethods.IntArrayShellSort(data, SortingMethods.GenerateIntervals(arraySize));  
+SortingMethods.IntArrayShellSortBetter(data);  
 watch.Stop();
 elapsedTime = watch.ElapsedMilliseconds ;
-Console.WriteLine("Shell Sort w/ Interval: {0:F3}", elapsedTime);
+Console.WriteLine("Shell Sort better: {0:F3}", elapsedTime);
 
 SortingMethods.IntArrayGenerate(data, randomSeed);
 
