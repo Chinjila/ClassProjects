@@ -21,13 +21,27 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "JsonExercise", "JsonExercis
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EFHelloWorld", "EFHelloWorld\EFHelloWorld.csproj", "{5ADD5A7D-53CA-40F0-9971-B90A7DB141FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BrotliSample", "BrotliSample\BrotliSample.csproj", "{91079167-BA49-443C-9198-60FE6554910B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BrotliSample", "BrotliSample\BrotliSample.csproj", "{91079167-BA49-443C-9198-60FE6554910B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtendingEF", "ExtendingEF\ExtendingEF.csproj", "{15012085-D422-44BE-B81D-6E6D2204790A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExtendingEF", "ExtendingEF\ExtendingEF.csproj", "{15012085-D422-44BE-B81D-6E6D2204790A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GithubClient", "GithubClient\GithubClient.csproj", "{7C07A0BD-CACB-41FA-98A3-203D01C8B849}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GithubClient", "GithubClient\GithubClient.csproj", "{7C07A0BD-CACB-41FA-98A3-203D01C8B849}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XKCDDownload", "XKCDDownload\XKCDDownload.csproj", "{4DFD94F2-9E16-4599-91F8-E857F7751156}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XKCDDownload", "XKCDDownload\XKCDDownload.csproj", "{4DFD94F2-9E16-4599-91F8-E857F7751156}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ParallelSamples", "ParallelSamples\ParallelSamples.csproj", "{D1D7251E-337C-4F02-B84B-9E5D2DA4D266}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SynchroObjects", "SynchroObjects\SynchroObjects.csproj", "{8679A7AC-B1ED-4E40-B69F-58B390339940}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExploreReflection", "ExploreReflection\ExploreReflection.csproj", "{06800A09-4ECD-45F6-BBB6-AB5151B02B57}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AttributeSample", "AttributeSample\AttributeSample.csproj", "{C9F0A0D5-7473-40F3-92CA-1A64753351ED}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoSample", "CryptoSample\CryptoSample.csproj", "{AD23FEFD-1491-4240-BAB8-796BB8EA7154}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CsharpSorting", "CsharpSorting\CsharpSorting.csproj", "{44117251-FDFE-4F2E-887B-292E0B294550}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyVaultLearn", "KeyVaultLearn\KeyVaultLearn.csproj", "{BB841118-2A21-4A29-AFE6-C9AFB381D6A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -87,6 +101,34 @@ Global
 		{4DFD94F2-9E16-4599-91F8-E857F7751156}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4DFD94F2-9E16-4599-91F8-E857F7751156}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4DFD94F2-9E16-4599-91F8-E857F7751156}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D1D7251E-337C-4F02-B84B-9E5D2DA4D266}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D1D7251E-337C-4F02-B84B-9E5D2DA4D266}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D1D7251E-337C-4F02-B84B-9E5D2DA4D266}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D1D7251E-337C-4F02-B84B-9E5D2DA4D266}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8679A7AC-B1ED-4E40-B69F-58B390339940}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8679A7AC-B1ED-4E40-B69F-58B390339940}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8679A7AC-B1ED-4E40-B69F-58B390339940}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8679A7AC-B1ED-4E40-B69F-58B390339940}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06800A09-4ECD-45F6-BBB6-AB5151B02B57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06800A09-4ECD-45F6-BBB6-AB5151B02B57}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06800A09-4ECD-45F6-BBB6-AB5151B02B57}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06800A09-4ECD-45F6-BBB6-AB5151B02B57}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C9F0A0D5-7473-40F3-92CA-1A64753351ED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C9F0A0D5-7473-40F3-92CA-1A64753351ED}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C9F0A0D5-7473-40F3-92CA-1A64753351ED}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C9F0A0D5-7473-40F3-92CA-1A64753351ED}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AD23FEFD-1491-4240-BAB8-796BB8EA7154}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AD23FEFD-1491-4240-BAB8-796BB8EA7154}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AD23FEFD-1491-4240-BAB8-796BB8EA7154}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AD23FEFD-1491-4240-BAB8-796BB8EA7154}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44117251-FDFE-4F2E-887B-292E0B294550}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44117251-FDFE-4F2E-887B-292E0B294550}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44117251-FDFE-4F2E-887B-292E0B294550}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44117251-FDFE-4F2E-887B-292E0B294550}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB841118-2A21-4A29-AFE6-C9AFB381D6A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB841118-2A21-4A29-AFE6-C9AFB381D6A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB841118-2A21-4A29-AFE6-C9AFB381D6A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB841118-2A21-4A29-AFE6-C9AFB381D6A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

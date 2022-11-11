@@ -32,7 +32,7 @@ else
         {
             var stream = client.GetStreamAsync($"https://xkcd.com/{i}/info.0.json").Result;
             var aComic = JsonSerializer.DeserializeAsync<Comic>(stream).Result;
-            bag.Add(aComic.img);
+            bag.Add(aComic!.img);
         }
         catch (Exception)
         {
@@ -52,7 +52,7 @@ Parallel.ForEach(imgList!,new ParallelOptions { MaxDegreeOfParallelism=8 },(imgU
     var task = client.GetStreamAsync(imgUrl).ContinueWith(
              async (t) => { await t.Result.CopyToAsync(File.Create(destinationFolder + $"\\{index}.png")); Console.WriteLine($"file {index} completed"); }
              );
-        tasks.Add(task);
+        tasks.Add(task.Result);
     }
 
     );
