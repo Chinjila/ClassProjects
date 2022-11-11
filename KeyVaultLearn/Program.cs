@@ -3,6 +3,7 @@ using Azure.Identity;
 using Azure.Security.KeyVault.Keys;
 using Azure.Security.KeyVault.Keys.Cryptography;
 using Microsoft.Extensions.Configuration;
+using System.Reflection;
 using System.Text;
 
 const string vaultUrl = "https://mssavault.vault.azure.net/";
@@ -10,7 +11,7 @@ const string vaultUrl = "https://mssavault.vault.azure.net/";
 string tenantID = "75202359-8ca2-4185-af85-e8d288e60729";
 string applicationID = "7793bb05-3a54-487d-9795-83f89c2f3b92";
 
-var configuration = new ConfigurationBuilder().AddUserSecrets("39cc5f96-5860-452d-b374-bbab88fd775c");
+var configuration = new ConfigurationBuilder().AddUserSecrets<Program>(); //this works too
 var configs = configuration.Build();
 
 string secret = configs["secret"];
