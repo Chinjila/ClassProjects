@@ -39,6 +39,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AttributeSample", "Attribut
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoSample", "CryptoSample\CryptoSample.csproj", "{AD23FEFD-1491-4240-BAB8-796BB8EA7154}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsharpSorting", "CsharpSorting\CsharpSorting.csproj", "{44117251-FDFE-4F2E-887B-292E0B294550}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -117,6 +119,10 @@ Global
 		{AD23FEFD-1491-4240-BAB8-796BB8EA7154}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AD23FEFD-1491-4240-BAB8-796BB8EA7154}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AD23FEFD-1491-4240-BAB8-796BB8EA7154}.Release|Any CPU.Build.0 = Release|Any CPU
+		{44117251-FDFE-4F2E-887B-292E0B294550}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{44117251-FDFE-4F2E-887B-292E0B294550}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{44117251-FDFE-4F2E-887B-292E0B294550}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{44117251-FDFE-4F2E-887B-292E0B294550}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
