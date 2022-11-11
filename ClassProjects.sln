@@ -37,9 +37,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ExploreReflection", "Explor
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AttributeSample", "AttributeSample\AttributeSample.csproj", "{C9F0A0D5-7473-40F3-92CA-1A64753351ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CryptoSample", "CryptoSample\CryptoSample.csproj", "{AD23FEFD-1491-4240-BAB8-796BB8EA7154}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CryptoSample", "CryptoSample\CryptoSample.csproj", "{AD23FEFD-1491-4240-BAB8-796BB8EA7154}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CsharpSorting", "CsharpSorting\CsharpSorting.csproj", "{44117251-FDFE-4F2E-887B-292E0B294550}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CsharpSorting", "CsharpSorting\CsharpSorting.csproj", "{44117251-FDFE-4F2E-887B-292E0B294550}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "KeyVaultLearn", "KeyVaultLearn\KeyVaultLearn.csproj", "{BB841118-2A21-4A29-AFE6-C9AFB381D6A1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -123,6 +125,10 @@ Global
 		{44117251-FDFE-4F2E-887B-292E0B294550}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{44117251-FDFE-4F2E-887B-292E0B294550}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{44117251-FDFE-4F2E-887B-292E0B294550}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BB841118-2A21-4A29-AFE6-C9AFB381D6A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BB841118-2A21-4A29-AFE6-C9AFB381D6A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BB841118-2A21-4A29-AFE6-C9AFB381D6A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BB841118-2A21-4A29-AFE6-C9AFB381D6A1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

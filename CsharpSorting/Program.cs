@@ -11,60 +11,60 @@ double elapsedTime;  // time in second, accurate to about millseconds
 
 int[] data = new int[arraySize];
 
-SortingMethods.IntArrayGenerate(data, randomSeed);
+//SortingMethods.IntArrayGenerate(data, randomSeed);
 
 
-watch.Reset();
-watch.Start();
-SortingMethods.IntArrayBubbleSort(data);  
-watch.Stop();
-elapsedTime = watch.ElapsedMilliseconds ;
-Console.WriteLine("Bubble Sort: {0:F3}", elapsedTime);
-
-SortingMethods.IntArrayGenerate(data, randomSeed);
-
-watch.Reset();
-watch.Start();
-SortingMethods.IntArrayShellSortNaive(data); 
-watch.Stop();
-elapsedTime = watch.ElapsedMilliseconds ;
-Console.WriteLine("Shell Sort: {0:F3}", elapsedTime);
-
-SortingMethods.IntArrayGenerate(data, randomSeed);
-
-watch.Reset();
-watch.Start();
-SortingMethods.IntArrayShellSortBetter(data);  
-watch.Stop();
-elapsedTime = watch.ElapsedMilliseconds ;
-Console.WriteLine("Shell Sort better: {0:F3}", elapsedTime);
-
-SortingMethods.IntArrayGenerate(data, randomSeed);
-
-watch.Reset();
-watch.Start();
-SortingMethods.IntArrayInsertionSort(data);  
-watch.Stop();
-elapsedTime = watch.ElapsedMilliseconds ;
-Console.WriteLine("InsertionSort: {0:F3}", elapsedTime);
-
-SortingMethods.IntArrayGenerate(data, randomSeed);
-
-watch.Reset();
-watch.Start();
-SortingMethods.IntArraySelectionSort(data);  
-watch.Stop();
-elapsedTime = watch.ElapsedMilliseconds ;
-Console.WriteLine("Selection Sort: {0:F3}", elapsedTime);
+//watch.Reset();
+//watch.Start();
+//SortingMethods.IntArrayBubbleSort(data);  
+//watch.Stop();
+//elapsedTime = watch.ElapsedMilliseconds ;
+//Console.WriteLine("Bubble Sort: {0:F3}", elapsedTime);
 
 //SortingMethods.IntArrayGenerate(data, randomSeed);
 
 //watch.Reset();
 //watch.Start();
-//Array.Sort(data);
+//SortingMethods.IntArrayShellSortNaive(data); 
 //watch.Stop();
-//elapsedTime = watch.ElapsedMilliseconds;
-//Console.WriteLine("Array.Sort: {0:F3}", elapsedTime);
+//elapsedTime = watch.ElapsedMilliseconds ;
+//Console.WriteLine("Shell Sort: {0:F3}", elapsedTime);
+
+//SortingMethods.IntArrayGenerate(data, randomSeed);
+
+//watch.Reset();
+//watch.Start();
+//SortingMethods.IntArrayShellSortBetter(data);  
+//watch.Stop();
+//elapsedTime = watch.ElapsedMilliseconds ;
+//Console.WriteLine("Shell Sort better: {0:F3}", elapsedTime);
+
+//SortingMethods.IntArrayGenerate(data, randomSeed);
+
+//watch.Reset();
+//watch.Start();
+//SortingMethods.IntArrayInsertionSort(data);  
+//watch.Stop();
+//elapsedTime = watch.ElapsedMilliseconds ;
+//Console.WriteLine("InsertionSort: {0:F3}", elapsedTime);
+
+//SortingMethods.IntArrayGenerate(data, randomSeed);
+
+//watch.Reset();
+//watch.Start();
+//SortingMethods.IntArraySelectionSort(data);  
+//watch.Stop();
+//elapsedTime = watch.ElapsedMilliseconds ;
+//Console.WriteLine("Selection Sort: {0:F3}", elapsedTime);
+
+SortingMethods.IntArrayGenerate(data, randomSeed);
+
+watch.Reset();
+watch.Start();
+Array.Sort(data);
+watch.Stop();
+elapsedTime = watch.ElapsedMilliseconds;
+Console.WriteLine("Array.Sort: {0:F3}", elapsedTime);
 
 internal static class SortingMethods
 {
