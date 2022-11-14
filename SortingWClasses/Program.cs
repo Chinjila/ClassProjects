@@ -13,12 +13,25 @@ Person[] people = new Person[]
 Person[] people2 = new Person[]
 {
     new Person() { Name = "Bob2", Age = 34, Height = 170, Weight = 74 },
-    new Person() { Name = "Alex2", Age = 42, Height = 200, Weight = 72 },
+    new Person() { Name = "Alex2", Age = 42, Height = 200, Weight = 70 },
     new Person() { Name = "Marky Mark2", Age = 31, Height = 150, Weight = 60 },
     new Person() { Name = "Joseph2", Age = 33, Height = 140, Weight = 50 },
     new Person() { Name = "Winston2", Age = 22, Height = 160, Weight = 62 },
     new Person() { Name = "Marlboro2", Age = 25, Height = 175, Weight = 54 }
 };
+
+//SortedList<Person, Car> sortedList = new SortedList<Person, Car>();
+//sortedList.Add(people[1], new Car { VIN = "abc", Price = 2000, Weight = 300 });
+//sortedList.Add(people2[1], new Car { VIN = "abc", Price = 2000, Weight = 300 });
+//sortedList.Add(people2[2], new Car { VIN = "abc", Price = 2000, Weight = 300 });
+//sortedList.Add(people2[3], new Car { VIN = "abc", Price = 2000, Weight = 300 });
+
+SortedDictionary<Person, Car> sortedDictionary = new SortedDictionary<Person, Car>();
+sortedDictionary.Add(people[1], new Car { VIN = "abc", Price = 2000, Weight = 300 });
+sortedDictionary.Add(people2[1], new Car { VIN = "abc", Price = 2000, Weight = 300 });
+sortedDictionary.Add(people2[2], new Car { VIN = "abc", Price = 2000, Weight = 300 });
+sortedDictionary.Add(people2[3], new Car { VIN = "abc", Price = 2000, Weight = 300 });
+
 
 List<Person> customers = new List<Person>(people);
 customers.AddRange(people2);
@@ -74,7 +87,16 @@ class Person : IComparable<Person> {
 
     public int CompareTo(Person? other) //implmenting interface defined method
     {
-        return this.Height.CompareTo(other.Height);
+        switch (this.Height.CompareTo(other.Height))
+        {
+            case 0:
+                return this.Weight.CompareTo(other.Weight);
+                break;
+            default:
+                return this.Height.CompareTo(other.Height);
+                break;
+        }
+        
     }
     public override int GetHashCode()
     {

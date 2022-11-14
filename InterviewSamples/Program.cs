@@ -4,10 +4,25 @@
 using System.Diagnostics.Metrics;
 using System.Reactive.Linq;
 using System.Text;
+
+
+
+DictionarySample("aaaaabbbbbcccccccccccccccd");
 Console.WriteLine("Sample2");
 Sample2("aaaaabvvvaaaaasdsddddaaaabbbbbsaed");
+
 Console.WriteLine("Sample3");
 Sample9("saippuakivikauppias");
+
+
+
+void DictionarySample(string v)
+{
+    var dict = v.ToDictionary<char, int>(c =>
+        {
+            return new List<char>(v.ToArray()).FindAll(c2=>c2==c).Count;
+        });
+}
 
 void Sample9(string v)
 {
@@ -17,6 +32,7 @@ void Sample9(string v)
 
 void Sample2(string v)
 {
+    
     List<Entry> list = new List<Entry>();  
     
     for (int i = 0; i <= v.Length-1; i++)
