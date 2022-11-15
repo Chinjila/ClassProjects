@@ -3,28 +3,120 @@
 //Sample 2
 using System.Diagnostics.Metrics;
 using System.Linq;
+using System.Reactive.Concurrency;
 using System.Reactive.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 
+
+Console.WriteLine("Sample 1".PadRight(25,'='));
+// bit mask exercise
 Sample1();
 
-
-
-Console.WriteLine("Sample2");
+Console.WriteLine("\r\nSample 2".PadRight(25, '='));
+//Compression exercise
 Sample2("aaaaabvvvaaaaasdsddddaaaabbbbbsaed");
 
-Console.WriteLine("Sample3");
+Console.WriteLine("\r\nSample 7a - fibonacci - observable sequence demo".PadRight(25, '='));
+Sample7();
+
+void Sample7()
+{
+    List<ulong> fibonacciSeq = GenerateFibonnaci(10);
+    IObservable<ulong> fibonacciSource = fibonacciSeq.ToObservable();
+    using (var fibonnacciSub = fibonacciSource.SubscribeOn(TaskPoolScheduler.Default)
+     .Subscribe(
+     (x) => Console.WriteLine(x),
+     (Exception ex) => Console.WriteLine("Error received from source: {0}.", ex.Message),
+     () => Console.WriteLine("End of sequence.")
+     )
+ )
+    {
+        Console.WriteLine("Press enter again to unsubscribe from the service.");
+        Console.ReadLine();
+    }
+}
+
+Console.WriteLine("\r\nSample 7b - fibonacci - value tuple demo".PadRight(25, '='));
+Sample7b();
+
+void Sample7b()
+{
+    IEnumerator<ulong> iterator=Fibonacci().GetEnumerator();
+    for (int i = 0; i <= 10; i++)
+    {
+        iterator.MoveNext();
+        Console.WriteLine(iterator.Current);
+        
+    }
+}
+
+Console.WriteLine("\r\nSample 7c - fibonacci - combine a and b".PadRight(25, '='));
+Sample7c();
+
+void Sample7c()
+{
+    IObservable<ulong> fibonacciSource = Fibonacci().ToObservable();
+    using (var fibonnacciSub = fibonacciSource.Take(10).SubscribeOn(TaskPoolScheduler.Default)
+     .Subscribe(
+     (x) => {
+         Console.WriteLine(x); 
+     },
+     (Exception ex) => Console.WriteLine("Error received from source: {0}.", ex.Message),
+     () => Console.WriteLine("End of sequence.")
+     )
+ )
+    {
+        Console.WriteLine("Press enter again to unsubscribe from the service.");
+        Console.ReadLine();
+    }
+
+}
+
+static IEnumerable<ulong> Fibonacci()
+{
+    ulong first = 0;
+    ulong second = 1;
+
+    yield return first;
+    yield return second;
+
+    while (true)
+    {
+        (first, second) = (second, second + first);
+        yield return second;
+    }
+}
+static List<ulong> GenerateFibonnaci(int sequenceLength)
+{
+    List<ulong> sequence = new List<ulong>();
+
+    for (int i = 0; i < sequenceLength; i++)
+    {
+        if (i <= 1)
+            sequence.Add((ulong)i);
+        else
+            sequence.Add(sequence[i - 2] + sequence[i - 1]);
+    }
+
+    return sequence;
+}
+Console.WriteLine("\r\nSample 3".PadRight(25, '='));
+
 Sample9("saippuakivikauppias");
 
 
 void Sample1()
 {
-    string[] choices = "0|12,0|8,16|14,3072|16,32768|1".Split(',');
+    //linq query
+    Console.WriteLine();
+    string[] choices = "\t0|12,0|8,16|14,3072|16,32768|1".Split(',');
     Console.WriteLine($"Choices of : {String.Join(',', choices)}");
     InputToSet(0, choices);
     InputToSet(18, choices);
     InputToSet(32769, choices);
+    //extension method on int
+    Console.WriteLine();
     choices = "0|16,1|16,2|15,4|14".Split(',');
     Console.WriteLine($"Choices of : {String.Join(',', choices)}");
     Console.WriteLine($"input {0,-5} is in set:{0.FindSet(choices)}");
@@ -36,7 +128,8 @@ void Sample1()
 
 void InputToSet(int v, string[] choices)
 {
-    var result = new List<string>(choices).Where(c => MaskHelper(v, c)).OrderByDescending(c => int.Parse(c.Split("|")[1])).First();
+    var result = new List<string>(choices).Where(c => MaskHelper(v, c)).MaxBy(c => int.Parse(c.Split("|")[1]));
+        //.OrderByDescending(c => int.Parse(c.Split("|")[1])).First();
     Console.WriteLine($"input:{v,-5} is in set:{result}");
 }
 
@@ -46,13 +139,13 @@ static bool MaskHelper(int v, String s)
     //string toParse = "3072|15";
     string[] parts = s.Split("|");
 
-
-    var strPartTwo = new String('1', int.Parse(parts[1])).PadRight(16, '0');
+    int mask = int.Parse(parts[1]);
+    var strPartTwo = new String('1', mask).PadRight(16, '0');
     int partOne = int.Parse(parts[0]);
     int partTwo = Convert.ToUInt16(strPartTwo, 2);
 
     int inclusiveRangeStart = partOne & partTwo;
-    int inclusiveRangeEnd = (int)(partOne + Math.Pow(2.0, 16 - int.Parse(parts[1]))) - 1;
+    int inclusiveRangeEnd = (int)(partOne + Math.Pow(2.0, 16 - mask)) - 1;
 
 
     return (v >= inclusiveRangeStart && v <= inclusiveRangeEnd);
