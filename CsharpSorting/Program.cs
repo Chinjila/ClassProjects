@@ -6,10 +6,12 @@ Stopwatch watch = new Stopwatch();
 double elapsedTime;  // time in second, accurate to about millseconds
 
 
-    arraySize = 50000;
+    arraySize = 100;
     randomSeed = DateTime.Now.Millisecond;
 
 int[] data = new int[arraySize];
+
+
 
 //SortingMethods.IntArrayGenerate(data, randomSeed);
 
@@ -48,23 +50,23 @@ int[] data = new int[arraySize];
 //elapsedTime = watch.ElapsedMilliseconds ;
 //Console.WriteLine("InsertionSort: {0:F3}", elapsedTime);
 
-//SortingMethods.IntArrayGenerate(data, randomSeed);
-
-//watch.Reset();
-//watch.Start();
-//SortingMethods.IntArraySelectionSort(data);  
-//watch.Stop();
-//elapsedTime = watch.ElapsedMilliseconds ;
-//Console.WriteLine("Selection Sort: {0:F3}", elapsedTime);
-
 SortingMethods.IntArrayGenerate(data, randomSeed);
 
 watch.Reset();
 watch.Start();
-Array.Sort(data);
+SortingMethods.IntArraySelectionSort(data);
 watch.Stop();
 elapsedTime = watch.ElapsedMilliseconds;
-Console.WriteLine("Array.Sort: {0:F3}", elapsedTime);
+Console.WriteLine("Selection Sort: {0:F3}", elapsedTime);
+
+SortingMethods.IntArrayGenerate(data, randomSeed);
+
+//watch.Reset();
+//watch.Start();
+//Array.Sort(data);
+//watch.Stop();
+//elapsedTime = watch.ElapsedMilliseconds;
+//Console.WriteLine("Array.Sort: {0:F3}", elapsedTime);
 
 internal static class SortingMethods
 {
@@ -170,25 +172,18 @@ internal static class SortingMethods
         }
     }
 
-    public static int IntArrayMin(int[] data, int start)
-    {
-        int minPos = start;
-        for (int pos = start + 1; pos < data.Length; pos++)
-            if (data[pos] < data[minPos])
-                minPos = pos;
-        return minPos;
-    }
+   
 
     public static void IntArraySelectionSort(int[] data)
     {
-        int i;
-        int N = data.Length;
+        int i; //loop counter
+        int N = data.Length; //number of array elements
 
-        for (i = 0; i < N - 1; i++)
+        for (i = 0; i < N - 1; i++) //scan entire array and swap current position with the min value
         {
-            int k = IntArrayMin(data, i);
-            if (i != k)
-                exchange(data, i, k);
+            int k = IntArrayMin(data, i); //find the position of the smallest element
+            if (i != k) //if the smallest element is not the current element, swap them
+                exchange(data, i, k); //swap
         }
     }
 
@@ -207,7 +202,7 @@ internal static class SortingMethods
         }
     }
 
-    public static void exchange(int[] data, int m, int n)
+    public static void exchange(int[] data, int m, int n) //this is a utility method that swap 2 element at position m and n of a given data array
     {
         int temporary;
 
@@ -216,4 +211,12 @@ internal static class SortingMethods
         data[n] = temporary;
     }
 
+    public static int IntArrayMin(int[] data, int start) //this function scan data array starting from start position and return the position of the smallest item
+    {
+        int minPos = start;
+        for (int pos = start + 1; pos < data.Length; pos++)
+            if (data[pos] < data[minPos])
+                minPos = pos;
+        return minPos;
+    }
 }

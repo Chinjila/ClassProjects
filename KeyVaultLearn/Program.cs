@@ -4,6 +4,8 @@ using Azure.Security.KeyVault.Keys;
 using Azure.Security.KeyVault.Keys.Cryptography;
 using Microsoft.Extensions.Configuration;
 using System.Reflection;
+using System.Runtime.Intrinsics.Arm;
+using System.Security.Cryptography;
 using System.Text;
 
 const string vaultUrl = "https://mssavault.vault.azure.net/";
@@ -21,11 +23,12 @@ ClientSecretCredential clientCredential = new ClientSecretCredential(tenantID, a
 var client = new KeyClient(vaultUri: new Uri(vaultUrl), credential: clientCredential);
 
 // Create a new key using the key client.
-KeyVaultKey key = client.CreateKey("victor-key", KeyType.Rsa);
+//KeyVaultKey key = client.CreateKey("victor-key", KeyType.Rsa);
+// you only need to run this once
 
 
 // Retrieve a key using the key client.
-key = client.GetKey("victor-key");
+KeyVaultKey key = client.GetKey("victor-key");
 
 CryptographyClient cryptoClient = client.GetCryptographyClient(key.Name, key.Properties.Version);
 
@@ -34,4 +37,21 @@ Console.WriteLine(Convert.ToBase64String(encryptedData.Ciphertext));
 
 var decryptedData = cryptoClient.Decrypt(EncryptionAlgorithm.RsaOaep, encryptedData.Ciphertext);
 Console.WriteLine(Encoding.UTF8.GetString(decryptedData.Plaintext));
+
+string message = "Hi Bob";
+var sha = SHA256.Create();
+byte[] digest = sha.ComputeHash(Encoding.UTF8.GetBytes(message));
+
+SignResult signResult = cryptoClient.Sign(SignatureAlgorithm.RS256, digest);
+Console.WriteLine($"original text:{message}");
+Console.WriteLine($"hashed(digest):{Convert.ToBase64String(digest)}");
+Console.WriteLine($"DigitalSignature:{Convert.ToBase64String(signResult.Signature)}");
+
+VerifyResult verifyResult = cryptoClient.Verify(SignatureAlgorithm.RS256, digest, signResult.Signature);
+Console.WriteLine($"Verify hash and signature result: {verifyResult.IsValid}");
+
+
+
+
+
 
