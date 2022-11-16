@@ -110,13 +110,13 @@ void Sample2(string v)
 #endregion
 
 #region Sample 6
-//Console.WriteLine("\r\nSample 6".PadRight(25, '='));
-//Sample6();
+Console.WriteLine("\r\nSample 6".PadRight(25, '='));
+Sample6();
 
 void Sample6()
 {
     List<CharScanBot> bots = new() { new CharScanBot('(', ')'), new CharScanBot('[', ']'), new CharScanBot('{', '}') };
-    String toScan = "{{((()]}";
+    String toScan = "{{(((}}}[[[)]}";
     Console.WriteLine($"Input string: {toScan}");
 
     Parallel.ForEach(bots, 
@@ -214,6 +214,8 @@ void Sample7c()
     }
 
 }
+
+
 Console.WriteLine("\r\nSample 7d - fibonacci - ObservableSequence - the end...".PadRight(25, '='));
 Sample7d();
 void Sample7d() {
@@ -227,14 +229,14 @@ void Sample7d() {
 
     var realObs = Observable.Generate(
                                    0,                      // Initial state value
-                                   x => 1 == 1,      // The termination condition. Terminate generation when false (the integer squared is not less than 1000).
+                                   x => true,      // The termination condition. Terminate generation when false (the integer squared is not less than 1000).
                                    x => x + 1,             // Iteration step function updates the state and returns the new state. In this case state is incremented by 1.
                                    x => { (first, second) = (second, second + first); return second; }
     );
 
     hardcodingFirst2Items
         .Concat(realObs)
-        .TakeUntil(x=>x>int.MaxValue)
+        .TakeUntil(x=> counter==10)//x > int.MaxValue)
         .Subscribe((x) => Console.WriteLine($"The {counter++} sequence of fib is {x,-10}"));
 
 }
@@ -271,10 +273,10 @@ static List<ulong> GenerateFibonnaci(int sequenceLength)
 
     return sequence;
 }
-Console.WriteLine("\r\nSample 3".PadRight(25, '='));
+
 
 #endregion
-
+Console.WriteLine("\r\nSample 3: Dedupe Paragraph of words and detect palindrome".PadRight(25, '='));
 #region Sample 9
 Sample9a();
 
@@ -297,8 +299,30 @@ void Sample9a()
         //produce distinct list of word for each news description
         response.EnsureSuccessStatusCode();
         var jsonResult = JsonSerializer.Deserialize<Root>(response.Content.ReadAsStream());
-        var distinctList = jsonResult?.value.Select(v => v.description.Split(' ').Distinct()).ToList();
-        distinctList?.ForEach(item => Console.WriteLine(String.Join(" ", item)));
+
+        foreach (Value item in jsonResult?.value)
+        {
+            
+           SortedDictionary<string, int> distinctWords = new();
+           IEnumerable<string> words =item.description
+                .Replace(".",string.Empty)
+                .Replace(",", string.Empty).Split(" ");
+
+            foreach (string word in words)
+            {
+                if (!distinctWords.TryAdd(word.ToUpper(), 1))
+                {
+                    distinctWords[word.ToUpper()] = distinctWords[word.ToUpper()] + 1;
+                }
+            }
+            foreach (var dictionaryEntry in distinctWords)
+            {
+                Console.WriteLine($"{dictionaryEntry.Key} - {dictionaryEntry.Value} - {dictionaryEntry.Key.IsPalindrome()}");
+            }
+            Console.WriteLine("".PadRight(20,'*'));
+        }
+        //var distinctList = jsonResult?.value.Select(v => v.description.Split(' ').Distinct()).ToList();
+        //distinctList?.ForEach(item => Console.WriteLine(String.Join(" ", item)));
     }
     
 }
@@ -357,10 +381,13 @@ class CharScanBot {
     public char Char2 { get; }
 }
 
-static class IntExtension
+static class MyExtensions
 {
     internal static String FindSmallestSetFromChoices(this int i, string[] choices)
     { return choices?.Where(c => MaskHelper(i, c)).MaxBy(c => int.Parse(c.Split("|")[1])); }
+    internal static bool IsPalindrome(this string s) {
+        return s.ToLower() == new String(s.ToLower().Reverse().ToArray());
+    }
 
     static bool MaskHelper(int v, String s)
     {
