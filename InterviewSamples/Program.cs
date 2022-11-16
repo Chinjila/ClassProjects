@@ -2,10 +2,13 @@
 
 //Sample 2
 using Microsoft.VisualBasic;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Reactive.Concurrency;
 using System.Reactive.Linq;
+using System.Reactive.Subjects;
 using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -14,9 +17,9 @@ using System.Text.Json.Nodes;
 
 
 #region Sample 1
-Console.WriteLine("Sample 1".PadRight(25, '='));
-// bit mask exercise
-Sample1();
+//Console.WriteLine("Sample 1".PadRight(25, '='));
+//// bit mask exercise
+//Sample1();
 void Sample1()
 {
     //linq query
@@ -74,9 +77,9 @@ static bool MaskHelper(int v, String s) // this solves problem 1
 #endregion
 
 #region Sample 2
-Console.WriteLine("\r\nSample 2".PadRight(25, '='));
-//Compression exercise
-Sample2("aaaaabvvvaaaaasdsddddaaaabbbbbsaed");
+//Console.WriteLine("\r\nSample 2".PadRight(25, '='));
+////Compression exercise
+//Sample2("aaaaabvvvaaaaasdsddddaaaabbbbbsaed");
 
 void Sample2(string v)
 {
@@ -107,8 +110,8 @@ void Sample2(string v)
 #endregion
 
 #region Sample 6
-Console.WriteLine("\r\nSample 6".PadRight(25, '='));
-Sample6();
+//Console.WriteLine("\r\nSample 6".PadRight(25, '='));
+//Sample6();
 
 void Sample6()
 {
@@ -184,21 +187,14 @@ void Sample7b()
     }
 }
 
-Console.WriteLine("\r\nSample 7c - fibonacci - combine a and b".PadRight(25, '='));
-Sample7c();
+//Console.WriteLine("\r\nSample 7c - fibonacci - combine a and b".PadRight(25, '='));
+//Sample7c();
 
 void Sample7c()
 {
     int previous = 0;
     IObservable<ulong> fibonacciSource = Fibonacci().ToObservable();
-    //var obs = Observable.Generate(0,                      // Initial state value
-    //                               x => x < 100,      // The termination condition. Terminate generation when false (the integer squared is not less than 1000).
-    //                               x => x + 1,             // Iteration step function updates the state and returns the new state. In this case state is incremented by 1.
-    //                               x => { return x + previous; });
-    
-    ////obs.Buffer(2).Subscribe(
-    ////    bufferIsListOf2Item => Console.WriteLine(bufferIsListOf2Item.Sum())
-    ////    );
+   
     fibonacciSource.TakeUntil(DateTime.Now.AddMilliseconds(15000)).Subscribe((x) => System.Diagnostics.Debug.WriteLine(x));
     //different subscribers can subscribe 
 
@@ -218,7 +214,30 @@ void Sample7c()
     }
 
 }
+Console.WriteLine("\r\nSample 7d - fibonacci - ObservableSequence - the end...".PadRight(25, '='));
+Sample7d();
+void Sample7d() {
+    ulong first = 0;
+    ulong second = 1;
+    int counter = 0;
+    var hardcodingFirst2Items = Observable.Generate(0,                      // Initial state value
+                                   x => x < 2,      // The termination condition. Terminate generation when false (the integer squared is not less than 1000).
+                                   x => x + 1,             // Iteration step function updates the state and returns the new state. In this case state is incremented by 1.
+                                   x => (ulong)x);
 
+    var realObs = Observable.Generate(
+                                   0,                      // Initial state value
+                                   x => 1 == 1,      // The termination condition. Terminate generation when false (the integer squared is not less than 1000).
+                                   x => x + 1,             // Iteration step function updates the state and returns the new state. In this case state is incremented by 1.
+                                   x => { (first, second) = (second, second + first); return second; }
+    );
+
+    hardcodingFirst2Items
+        .Concat(realObs)
+        .TakeUntil(x=>x>int.MaxValue)
+        .Subscribe((x) => Console.WriteLine($"The {counter++} sequence of fib is {x,-10}"));
+
+}
 static IEnumerable<ulong> Fibonacci()
 {
     ulong first = 0;
