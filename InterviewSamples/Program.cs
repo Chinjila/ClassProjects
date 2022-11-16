@@ -1,6 +1,7 @@
 ﻿// See https://aka.ms/new-console-template for more information
 
 //Sample 2
+using Microsoft.VisualBasic;
 using System.Diagnostics.Metrics;
 using System.Linq;
 using System.Reactive.Concurrency;
@@ -20,41 +21,53 @@ void Sample1()
 {
     //linq query
     Console.WriteLine();
-    string[] choices = "\t0|12,0|8,16|14,3072|16,32768|1".Split(',');
+    string[] choices = "0|12,0|8,16|14,3072|16,32768|1".Split(',');
     Console.WriteLine($"Choices of : {String.Join(',', choices)}");
     InputToSet(0, choices);
     InputToSet(18, choices);
     InputToSet(32769, choices);
+
     //extension method on int
     Console.WriteLine();
     choices = "0|16,1|16,2|15,4|14".Split(',');
     Console.WriteLine($"Choices of : {String.Join(',', choices)}");
-    Console.WriteLine($"input {0,-5} is in set:{0.FindSet(choices)}");
-    Console.WriteLine($"input {3,-5} is in set:{3.FindSet(choices)}");
-    Console.WriteLine($"input {7,-5} is in set:{7.FindSet(choices)}");
+    Console.WriteLine($"input {0,-5} is in set:{0.FindSmallestSetFromChoices(choices)}");
+    Console.WriteLine($"input {3,-5} is in set:{3.FindSmallestSetFromChoices(choices)}");
+    Console.WriteLine($"input {7,-5} is in set:{7.FindSmallestSetFromChoices(choices)}");
 
 }
 void InputToSet(int v, string[] choices)
 {
-    var result = new List<string>(choices).Where(c => MaskHelper(v, c)).MaxBy(c => int.Parse(c.Split("|")[1]));
+    
+    var result = choices.Where(c => MaskHelper(v, c)).MaxBy(c => int.Parse(c.Split("|")[1]));// this solves problem 2
     //.OrderByDescending(c => int.Parse(c.Split("|")[1])).First();
     Console.WriteLine($"input:{v,-5} is in set:{result}");
 }
-static bool MaskHelper(int v, String s)
+static bool MaskHelper(int v, String s) // this solves problem 1
 {
-    //string toParse = "16|14";
+    //string toParse = "18|14";<--this sample
     //string toParse = "3072|15";
-    string[] parts = s.Split("|");
+    string[] parts = s.Split("|"); //need to split on | symbol and obtain 2 separate strings in an array
 
-    int mask = int.Parse(parts[1]);
-    var strPartTwo = new String('1', mask).PadRight(16, '0');
-    int partOne = int.Parse(parts[0]);
-    int partTwo = Convert.ToUInt16(strPartTwo, 2);
+    int mask = int.Parse(parts[1]);//this return 14 - which is the number of 1s in the mask
+    var strPartTwo = new String('1', mask).PadRight(16, '0');//new String('1',mask) returns a string 
+    //"11111111111111" (14 1s)
+    //PadRights(16) pads the string to 16 characters with 0 as filler
+    //"1111111111111100" <- this is still a string called strPartTwo
 
+    int partOne = int.Parse(parts[0]);//0000000000010010 first part is already a number
+    int partTwo = Convert.ToUInt16(strPartTwo, 2);//Convert "1111111111111100" to Unsigned Int16
+    // so we can do bitwise AND between partOne and partTwo
     int inclusiveRangeStart = partOne & partTwo;
+    // 0000000000010010
+    // 1111111111111100
+    // with an AND operation we have
+    // 0000000000010000 <- that is the range start, where the last two bits will be 0
+
     int inclusiveRangeEnd = (int)(partOne + Math.Pow(2.0, 16 - mask)) - 1;
-
-
+    // calculating the range end is 2 to the power of changing bit(16-14)=2
+    // 00 + 4-1 = range end on 03
+    // 16+00 to 16+03 
     return (v >= inclusiveRangeStart && v <= inclusiveRangeEnd);
 
 }
@@ -87,40 +100,83 @@ void Sample2(string v)
 
     }
     Console.WriteLine("");
-    Console.WriteLine("---------------------");
+    
 }
 
 
 #endregion
 
+#region Sample 6
+Console.WriteLine("\r\nSample 6".PadRight(25, '='));
+Sample6();
+
+void Sample6()
+{
+    List<CharScanBot> bots = new() { new CharScanBot('(', ')'), new CharScanBot('[', ']'), new CharScanBot('{', '}') };
+    String toScan = "{{((()]}";
+    Console.WriteLine($"Input string: {toScan}");
+
+    Parallel.ForEach(bots, 
+        bot => bot.ScanThis(toScan)
+        .ContinueWith(t => 
+            Console.WriteLine(t.Result.TellMeWhatIamMissing())));
+
+    Console.WriteLine("press enter for next sample");
+    Console.ReadLine();
+}
+
+
+
+#endregion
+
 #region Sample 7
-Console.WriteLine("\r\nSample 7a - fibonacci - observable sequence demo".PadRight(25, '='));
-Sample7();
+//Console.WriteLine("\r\nSample 7 - standard fibonacci ".PadRight(25, '='));
+//Sample7();
 
 void Sample7()
 {
+    List<ulong> fibonacciSeq = GenerateFibonnaci(10);//prepare the sequence
+    for (int i = 0; i <= fibonacciSeq.Count-1; i++)
+    {
+        Console.WriteLine($"Fibonacci number for position {i,5} is {fibonacciSeq[i],25}");
+    }
+    
+}
+
+//Console.WriteLine("\r\nSample 7a - fibonacci - observable sequence demo".PadRight(25, '='));
+//Sample7a();
+
+void Sample7a()
+{
+    int loopcounter = 0;
     List<ulong> fibonacciSeq = GenerateFibonnaci(10);
-    IObservable<ulong> fibonacciSource = fibonacciSeq.ToObservable();
-    using (var fibonnacciSub = fibonacciSource.SubscribeOn(TaskPoolScheduler.Default)
+    IObservable<ulong> fibonacciSource = fibonacciSeq.ToObservable(); //we are not using a for or foreach loop here,
+    //instead the element of the List is sent to our subscribed callback
+    
+    using (var fibonnacciSub = fibonacciSource
      .Subscribe(
-     (x) => Console.WriteLine(x),
+     (x) => { 
+        Console.WriteLine($"The {loopcounter} fib number is {x}");
+        loopcounter++;
+     },//callback when an element is pushed to subscribed
      (Exception ex) => Console.WriteLine("Error received from source: {0}.", ex.Message),
      () => Console.WriteLine("End of sequence.")
      )
- )
-    {
+    )//end of using
+    {//start of code block that disposes fibonnacciSub when exits
         Console.WriteLine("Press enter again to unsubscribe from the service.");
-        Console.ReadLine();
-    }
+        Console.ReadLine();//block the main thead here
+    }//user hit enter, we are exiting the using block in 130, so fibonnacciSub is displosed of
 }
 
-Console.WriteLine("\r\nSample 7b - fibonacci - value tuple demo".PadRight(25, '='));
-Sample7b();
+//Console.WriteLine("\r\nSample 7b - fibonacci - value tuple demo".PadRight(25, '='));
+//Sample7b();
 
 void Sample7b()
 {
+
     IEnumerator<ulong> iterator = Fibonacci().GetEnumerator();
-    for (int i = 0; i <= 10; i++)
+    for (int i = 0; i <= 25; i++)
     {
         iterator.MoveNext();
         Console.WriteLine(iterator.Current);
@@ -133,8 +189,20 @@ Sample7c();
 
 void Sample7c()
 {
+    int previous = 0;
     IObservable<ulong> fibonacciSource = Fibonacci().ToObservable();
-    using (var fibonnacciSub = fibonacciSource.Take(10).SubscribeOn(TaskPoolScheduler.Default)
+    //var obs = Observable.Generate(0,                      // Initial state value
+    //                               x => x < 100,      // The termination condition. Terminate generation when false (the integer squared is not less than 1000).
+    //                               x => x + 1,             // Iteration step function updates the state and returns the new state. In this case state is incremented by 1.
+    //                               x => { return x + previous; });
+    
+    ////obs.Buffer(2).Subscribe(
+    ////    bufferIsListOf2Item => Console.WriteLine(bufferIsListOf2Item.Sum())
+    ////    );
+    fibonacciSource.TakeUntil(DateTime.Now.AddMilliseconds(15000)).Subscribe((x) => System.Diagnostics.Debug.WriteLine(x));
+    //different subscribers can subscribe 
+
+    using (var fibonnacciSub = fibonacciSource.TakeUntil(DateTime.Now.AddMilliseconds(10000))
      .Subscribe(
      (x) =>
      {
@@ -142,8 +210,8 @@ void Sample7c()
      },
      (Exception ex) => Console.WriteLine("Error received from source: {0}.", ex.Message),
      () => Console.WriteLine("End of sequence.")
-     )
  )
+     )
     {
         Console.WriteLine("Press enter again to unsubscribe from the service.");
         Console.ReadLine();
@@ -161,6 +229,7 @@ static IEnumerable<ulong> Fibonacci()
 
     while (true)
     {
+        Task.Delay(1000).Wait();
         (first, second) = (second, second + first);
         yield return second;
     }
@@ -171,10 +240,14 @@ static List<ulong> GenerateFibonnaci(int sequenceLength)
 
     for (int i = 0; i < sequenceLength; i++)
     {
+        Task.Delay(1000).Wait();
         if (i <= 1)
             sequence.Add((ulong)i);
         else
+        {
+            if ((sequence[i - 2] + sequence[i - 1]) > 10_000_000) { break; }
             sequence.Add(sequence[i - 2] + sequence[i - 1]);
+        }
     }
 
     return sequence;
@@ -182,6 +255,7 @@ static List<ulong> GenerateFibonnaci(int sequenceLength)
 Console.WriteLine("\r\nSample 3".PadRight(25, '='));
 
 #endregion
+
 #region Sample 9
 Sample9a();
 
@@ -228,11 +302,46 @@ class Entry
     internal int Count;
 }
 
+class CharScanBot {
+    public CharScanBot(char char1, char char2)
+    {
+        Char1 = char1;
+        Char2 = char2;
+    }
+
+    internal async Task<CharScanBot> ScanThis(string s) {
+        await Task.Run(()=>_dict.Add(Char1, s.Where(c => c == Char1).Count()));
+        await Task.Run(() => _dict.Add(Char2, s.Where(c => c == Char2).Count()));
+        return this;
+    }
+
+    internal string TellMeWhatIamMissing()
+    {
+        switch (_dict[Char1] - _dict[Char2]) {
+            case 0:
+                return "missing nothing";
+                break;
+            case > 0:
+                return $"You need {(_dict[Char1] - _dict[Char2])} {Char2}";
+                break;
+            case < 0:
+                return $"You need {(_dict[Char2] - _dict[Char1])} {Char1}";
+                break;
+
+        }
+    }
+
+
+
+    private Dictionary<char,int> _dict= new();
+    public char Char1 { get; }
+    public char Char2 { get; }
+}
 
 static class IntExtension
 {
-    internal static String FindSet(this int i, string[] choices)
-    { return new List<string>(choices).Where(c => MaskHelper(i, c)).OrderByDescending(c => int.Parse(c.Split("|")[1])).First(); }
+    internal static String FindSmallestSetFromChoices(this int i, string[] choices)
+    { return choices?.Where(c => MaskHelper(i, c)).MaxBy(c => int.Parse(c.Split("|")[1])); }
 
     static bool MaskHelper(int v, String s)
     {
