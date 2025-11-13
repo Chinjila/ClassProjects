@@ -1,0 +1,32 @@
+create procedure dbo.usp_ImportInsert
+as
+  DECLARE 
+        @ret       int,
+        @response  nvarchar(max),
+        @url       nvarchar(4000) = 
+            N'https://yourstorageaccount.blob.core.windows.net/blob1/ProductCategory.json',
+        @headers   nvarchar(4000) = 
+            N'{"Accept":"application/json","x-ms-version":"2022-11-02"}'; 
+            -- 'x-ms-version' required for authorized Blob requests. Use a recent supported version. 
+            -- See Get Blob REST docs.  [2](https://learn.microsoft.com/en-us/rest/api/storageservices/get-blob)
+
+    -- Call Azure Blob Storage (Get Blob)
+  EXEC @ret = sys.sp_invoke_external_rest_endpoint
+        @url        = @url,
+        @method     = 'GET',
+        @credential = [https://yourstorageaccount.blob.core.windows.net],
+        @headers    = @headers,
+        @response   = @response OUTPUT; 
+  
+  insert into SalesLT.ProductCategory(ParentProductCategoryID, Name, ModifiedDate)
+  SELECT        ParentProductCategoryID,
+    [Name],
+    TRY_CONVERT(datetime2(0), ModifiedDate)
+    FROM OPENJSON(@response, '$.result.ProductCategory')
+    WITH(
+        ParentProductCategoryID int '$.ParentProductCategoryID',
+        [Name] nvarchar(100)  '$.Name',
+        ModifiedDate nvarchar(50)   '$.ModifiedDate'
+    );
+
+                                                   
