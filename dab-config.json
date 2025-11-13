@@ -1,0 +1,68 @@
+{
+  "$schema": "https://github.com/Azure/data-api-builder/releases/download/v1.4.35/dab.draft.schema.json",
+  "data-source": {
+    "database-type": "mssql",
+    "connection-string": "@env('MSSQL_CONNECTION_STRING')"
+  },
+  "runtime": {
+    "rest": {
+      "enabled": true,
+      "path": "/api",
+      "request-body-strict": false
+    },
+    "graphql": {
+      "enabled": false,
+      "path": "/graphql",
+      "allow-introspection": true
+    },
+    "host": {
+      "cors": {
+        "origins": [],
+        "allow-credentials": false
+      },
+      "authentication": {
+        "provider": "StaticWebApps"
+      },
+      "mode": "development"
+    }
+  },
+  "entities": {
+    "ProductCategory": {
+      "source": {
+        "object": "SalesLT.usp_ProductCategory",
+        "type": "stored-procedure"
+      },
+      "graphql": {
+        "enabled": true,
+        "operation": "mutation",
+        "type": {
+          "singular": "usp_ProductCategory",
+          "plural": "usp_ProductCategories"
+        }
+      },
+      "rest": {
+        "enabled": true,
+        "path": "/ProductCategory",
+        "methods": [
+          "get"
+        ]
+      },
+      "permissions": [
+        {
+          "role": "anonymous",
+          "actions": [
+            {
+              "action": "*"
+            }
+          ]
+        }
+      ],
+      "mappings": {
+        "ProductID": "ProductID",
+        "ProductName": "ProductName",
+        "ProductNumber": "ProductNumber",
+        "ProductCategory": "ProductCategory"
+      }
+    }
+  }
+}
